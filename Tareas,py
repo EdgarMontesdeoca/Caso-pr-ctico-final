@@ -1,0 +1,120 @@
+import time
+
+# Función para imprimir la marca de agua con el nombre "edgar"
+def imprimir_marca_agua(nombre):
+    print(f"""
+ ███████╗██████╗  ██████╗  █████╗ ██████╗ ███████╗███╗   ██╗████████╗███╗   ██╗
+██╔════╝██╔══██╗██╔════╝ ██╔══██╗██╔══██╗██╔════╝████╗  ██║╚══██╔══╝████╗  ██║
+█████╗  ██║  ██║██║  ███╗███████║██████╔╝███████╗██╔██╗ ██║   ██║   ██╔██╗ ██║
+██╔══╝  ██║  ██║██║   ██║██╔══██║██╔══██╗╚════██║██║╚██╗██║   ██║   ██║╚██╗██║
+███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║███████║██║ ╚████║   ██║   ██║ ╚████║
+╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═══╝
+                                                                              
+                                    - Por edgar
+    """)
+
+# Función para imprimir un mensaje de bienvenida
+def imprimir_bienvenida():
+    print("¡Bienvenido al Gestor de Tareas!")
+    time.sleep(1)
+
+# Función para imprimir una animación de carga
+def imprimir_animacion_carga():
+    for _ in range(3):
+        print("Cargando...")
+        time.sleep(0.5)
+    print("¡Listo!")
+
+class Tarea:
+    def __init__(self, descripcion, prioridad):
+        self.descripcion = descripcion
+        self.prioridad = prioridad
+        self.completada = False
+
+    def marcar_completada(self):
+        self.completada = True
+
+    def __str__(self):
+        estado = "Completada" if self.completada else "Pendiente"
+        return f"{self.descripcion} - Prioridad: {self.prioridad} - Estado: {estado}"
+
+
+class GestorTareas:
+    def __init__(self):
+        self.tareas = []
+
+    def agregar_tarea(self, tarea):
+        self.tareas.append(tarea)
+
+    def mostrar_tareas(self):
+        if not self.tareas:
+            print("No hay tareas pendientes.")
+        else:
+            for i, tarea in enumerate(self.tareas, start=1):
+                print(f"{i}. {tarea}")
+
+    def marcar_completada(self, indice):
+        try:
+            tarea = self.tareas[indice - 1]
+            tarea.marcar_completada()
+            print("¡Excelente! Tarea marcada como completada.")
+        except IndexError:
+            print("Oops! Esa tarea no existe.")
+
+    def eliminar_tarea(self, indice):
+        try:
+            del self.tareas[indice - 1]
+            print("Tarea eliminada satisfactoriamente.")
+        except IndexError:
+            print("Oops! Esa tarea no existe.")
+
+# Función principal del juego
+def iniciar_gestor_tareas():
+    imprimir_marca_agua("edgar")  # Imprimir la marca de agua con el nombre "edgar"
+    imprimir_bienvenida()  # Imprimir un mensaje de bienvenida
+    imprimir_animacion_carga()  # Imprimir una animación de carga
+
+    # Crear gestor de tareas
+    gestor = GestorTareas()
+
+    while True:
+        print("\n¡Hora de gestionar tus tareas!")
+        print("1. Agregar una nueva tarea")
+        print("2. Marcar una tarea como completada")
+        print("3. Mostrar todas las tareas")
+        print("4. Eliminar una tarea")
+        print("5. Salir")
+
+        opcion = input("¿Qué deseas hacer? Selecciona una opción: ")
+
+        if opcion == "1":
+            descripcion = input("Describe la nueva tarea: ")
+            prioridad = input("¿Qué tan importante es esta tarea? (Alta/Media/Baja): ")
+            nueva_tarea = Tarea(descripcion, prioridad)
+            gestor.agregar_tarea(nueva_tarea)
+            print("¡Tarea agregada con éxito!")
+        elif opcion == "2":
+            gestor.mostrar_tareas()
+            try:
+                indice = int(input("Ingrese el número de la tarea que has completado: "))
+                gestor.marcar_completada(indice)
+            except ValueError:
+                print("Por favor, ingresa un número válido.")
+        elif opcion == "3":
+            print("Tareas pendientes:")
+            gestor.mostrar_tareas()
+        elif opcion == "4":
+            gestor.mostrar_tareas()
+            try:
+                indice = int(input("Ingrese el número de la tarea que deseas eliminar: "))
+                gestor.eliminar_tarea(indice)
+            except ValueError:
+                print("Por favor, ingresa un número válido.")
+        elif opcion == "5":
+            print("¡Hasta luego! ¡Que tengas un día productivo!")
+            break
+        else:
+            print("Oops! Opción no válida. Por favor, selecciona una opción válida.")
+
+# Iniciar el juego
+iniciar_gestor_tareas()
