@@ -5,6 +5,7 @@ Enunciado:
 Escribe un programa en Python utilizando Programación Orientada a Objetos que gestione
 una lista de tareas pendientes. El programa deberá permitir al usuario realizar las siguientes
 operaciones:
+
 • Agregar una nueva tarea: El programa deberá permitir al usuario agregar una nueva tarea a
 la lista de tareas pendientes.
 
@@ -18,6 +19,7 @@ pendientes, numeradas y mostrando su estado (completada o pendiente).
 dada su posición.
 
 El programa deberá incluir las siguientes características:
+
 • Manejo de excepciones: El programa deberá manejar excepciones en caso de que el
 usuario ingrese una opción no válida o una posición que no exista en la lista.
 
